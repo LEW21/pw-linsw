@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-SYSTEMD_VERSION = 213
+SYSTEMD_VERSION = 214
 SYSTEMD_SITE = http://www.freedesktop.org/software/systemd/
 SYSTEMD_SOURCE = systemd-$(SYSTEMD_VERSION).tar.xz
 SYSTEMD_LICENSE = LGPLv2.1+; GPLv2+ for udev; MIT-like license for few source files listed in README
@@ -98,9 +98,6 @@ endif
 
 ifeq ($(BR2_PACKAGE_SYSTEMD_TIMESYNCD),y)
 SYSTEMD_CONF_OPT += --enable-timesyncd
-define SYSTEMD_USER_TIMESYNC
-	systemd-timesync -1 systemd-timesync -1 * - - - Network Time Synchronization
-endef
 else
 SYSTEMD_CONF_OPT += --disable-timesyncd
 endif
@@ -141,7 +138,10 @@ SYSTEMD_POST_INSTALL_TARGET_HOOKS += \
 define SYSTEMD_USERS
 	systemd-journal -1 systemd-journal -1 * /var/log/journal - - Journal
 	systemd-journal-gateway -1 systemd-journal-gateway -1 * /var/log/journal - - Journal Gateway
-	$(SYSTEMD_USER_TIMESYNC)
+	systemd-timesync -1 systemd-timesync -1 * - - - Network Time Synchronization
+	systemd-network -1 systemd-network -1 * - - - Network manager
+	systemd-bus-proxy -1 systemd-bus-proxy -1 * - - - D-Bus proxy
+	systemd-resolve -1 systemd-resolve -1 * - - -  Network Name Resolution
 endef
 
 $(eval $(autotools-package))

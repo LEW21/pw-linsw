@@ -1,0 +1,15 @@
+Don't use PrivateTmp in timesyncd.
+---
+
+diff -aburN systemd-214.orig/units/getty@.service.in systemd-214/units/getty@.service.in
+--- systemd-214.orig/units/systemd-timesyncd.service.in	2014-01-28 11:08:51.000000000 +0100
++++ systemd-214/units/systemd-timesyncd.service.in	2014-03-26 11:06:27.000000000 +0100
+@@ -23,7 +23,7 @@
+ RestartSec=0
+ ExecStart=@rootlibexecdir@/systemd-timesyncd
+ CapabilityBoundingSet=CAP_SYS_TIME CAP_SETUID CAP_SETGID CAP_SETPCAP CAP_CHOWN CAP_DAC_OVERRIDE CAP_FOWNER
+-PrivateTmp=yes
++PrivateTmp=no
+ PrivateDevices=yes
+ ProtectSystem=full
+ ProtectHome=yes
