@@ -1,0 +1,8 @@
+[Unit]
+Description=rpiduino presentation
+
+[Service]
+ExecStart=/usr/bin/qmlscene /usr/share/rpiduino/slides.qml
+
+[Install]
+WantedBy=multi-user.target

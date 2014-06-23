@@ -13,3 +13,8 @@
 *.rej
 *~
 *.pyc
+rpiduino/imports
+rpiduino/*/moc_*
+rpiduino/*/*/*/*.so
+rpiduino/*/Makefile
+overlay-rpiduino/usr/qml
