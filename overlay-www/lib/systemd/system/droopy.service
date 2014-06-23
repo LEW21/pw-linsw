@@ -1,0 +1,10 @@
+[Unit]
+Description=Image uploader
+
+[Service]
+Environment=HOME=/root
+ExecStart=/usr/bin/droopy -d /srv
+PrivateDevices=yes
+
+[Install]
+WantedBy=multi-user.target
